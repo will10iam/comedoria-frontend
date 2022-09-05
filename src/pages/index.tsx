@@ -1,24 +1,15 @@
 import { useContext, FormEvent } from 'react'
 import Head from "next/head"
-import styles from '../../styles/home.module.scss'
-import LogoImg from '../../public/logo.svg'
 import Image from "next/image"
+import styles from '../../styles/home.module.scss'
+
+import LogoImg from '../../public/logo.svg'
+
 import Link from "next/link"
 import { AuthContext } from '../contexts/AuthContext'
+import { Input } from '../components/ui/Input'
 
 export default function Home() {
-  const { signIn } = useContext(AuthContext);
-
-  async function handleLogin(event: FormEvent){
-    event.preventDefault();
-
-    let data = {
-      email: "teste@teste.com",
-      password: "123123"
-    }
-
-    signIn(data)
-  }
   return (
     <>
   <Head>
@@ -29,11 +20,12 @@ export default function Home() {
       <Image className={styles.logo} src={LogoImg} alt="Logo Comedoria" width={800} height={500}/>
 
       <div className={styles.login}>
-        <form onSubmit={handleLogin}>
+        <form>
+          <Input />
 
         </form>
 
-        <Link href="/signup"><a className={styles.text}>Não tem uma conta? Cadastre-se!</a></Link>
+        <Link href="/signup"><a>Não tem uma conta?  Cadastre Aqui!</a></Link>
       </div>
     </div>
     </>
