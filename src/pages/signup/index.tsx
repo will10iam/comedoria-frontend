@@ -14,16 +14,7 @@ export default function SignUp() {
     <div className={styles.containerCenter}>
       <Image className={styles.logo} src={LogoImg} alt="" width={800} height={500}/>
 
-      <div className={styles.login}>
-        <h1>Crie seu usuário!</h1>
-
-
-        <form>
-
-        </form>
-
-        <Link href="/"><a className={styles.text}>Já tem uma conta? Faça o login aqui!</a></Link>
-      </div>
+      <div className={styles.login}></div>
     </div>
     </>
   )
