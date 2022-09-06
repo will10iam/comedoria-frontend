@@ -7,7 +7,7 @@ import LogoImg from '../../public/logo.svg'
 
 import Link from "next/link"
 import { AuthContext } from '../contexts/AuthContext'
-import { Input } from '../components/ui/Input'
+import { Input } from "../components/ui/Input"
 
 export default function Home() {
   return (
@@ -21,11 +21,11 @@ export default function Home() {
 
       <div className={styles.login}>
         <form>
-          <Input />
+          <Input/>
 
         </form>
 
-        <Link href="/signup"><a>Não tem uma conta?  Cadastre Aqui!</a></Link>
+        <Link href="/signup">Não tem uma conta?  Cadastre Aqui!</Link>
       </div>
     </div>
     </>
