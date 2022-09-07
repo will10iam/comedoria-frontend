@@ -1,10 +1,14 @@
-import { userAgent } from 'next/server';
+
 import { createContext, ReactNode, useState } from 'react'
+
+import { destroyCookie } from 'nookies'
+import Router from 'next/router'
 
 type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
+    signOut: () => void;
 }
 
 type UserProps = {
@@ -25,16 +29,26 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData)
 
-export function AuthProvider({ children }: AuthProviderProps ){
+export function signOut() {
+    try {
+        destroyCookie(undefined, '@comedoria.token')
+        Router.push('/')
+    } catch {
+        console.log('error ao deslogar')
+    }
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<UserProps>();
     const isAuthenticated = !!user;
 
-    async function signIn(){
-        alert("CLICOU NO LOGIN")
+    async function signIn({ email, password }: SignInProps) {
+        console.log("DADOS PARA LOGAR", email)
+        console.log("SENHA", password)
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     )
