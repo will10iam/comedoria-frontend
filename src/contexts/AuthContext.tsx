@@ -1,7 +1,8 @@
-
 import { createContext, ReactNode, useState } from 'react'
 
-import { destroyCookie } from 'nookies'
+import { api } from '../services/apiClient'
+
+import { destroyCookie, setCookie, parseCookies } from 'nookies'
 import Router from 'next/router'
 
 type AuthContextData = {
@@ -9,6 +10,7 @@ type AuthContextData = {
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
     signOut: () => void;
+    signUp: (credentials: SignUpProps) => Promise<void>;
 }
 
 type UserProps = {
@@ -18,6 +20,12 @@ type UserProps = {
 }
 
 type SignInProps = {
+    email: string;
+    password: string;
+}
+
+type SignUpProps = {
+    name: string;
     email: string;
     password: string;
 }
@@ -43,12 +51,55 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const isAuthenticated = !!user;
 
     async function signIn({ email, password }: SignInProps) {
-        console.log("DADOS PARA LOGAR", email)
-        console.log("SENHA", password)
+        try {
+            // Rota para fazer login
+            const response = await api.post('/login', {
+                email, password
+            })
+            // Verificar se recebeu dados
+            console.log(response.data)
+
+            // Desconstruir e pegar só as props que eu quero usar
+            const { id, name, token } = response.data;
+
+            // Definir o que o cookie vai guardar
+            setCookie(undefined, '@comedoria.token', token, {
+                maxAge: 60 * 60 * 24 * 30, // Expirar em 1 mês
+                path: '/' // Quais caminhos terão acesso ao cookie
+            });
+
+            // Guardar infos do usuario
+            setUser({
+                id,
+                name,
+                email,
+            })
+            //Passar para as proximas requisições o token 
+            api.defaults.headers['Authorization'] = `Bearer ${token}`
+
+            // Assim que logar, é direcionado a página Dashboard 
+            Router.push('/dashboard')
+
+
+        } catch (err) {
+            console.log("DEU MERDA NO LOGIN", err)
+        }
+    }
+
+    async function signUp({ name, email, password }: SignUpProps) {
+        try {
+            const response = await api.post('/users', { name, email, password })
+
+            console.log("CADASTRADO COM SUCESSO")
+
+            Router.push('/')
+        } catch (err) {
+            console.log("DEU MERDA NO CADASTRO", err)
+        }
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )
