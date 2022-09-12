@@ -51,7 +51,7 @@ export default function Home() {
       </Head>
 
       <div className={styles.containerCenter}>
-        <Image src={LogoImg} alt="Logo Comedoria" width={800} height={500} />
+        <Image src={LogoImg} alt="Logo Comedoria" width={800} height={100} />
 
         <div className={styles.login}>
           <form onSubmit={handleLogin}>

@@ -1,10 +1,18 @@
+import Head from "next/head"
+import { Header } from "../../components/ui/Header"
+
 import { canSSRAuth } from "../../utils/canSSRAuth"
 
 export default function Dashboard() {
     return (
-        <div>
-            <h1>Bem vindo ao Painel!</h1>
-        </div>
+        <>
+            <Head>
+                <title>Comedoria - Painel</title>
+            </Head>
+            <div>
+                <Header />
+            </div>
+        </>
     )
 }
 

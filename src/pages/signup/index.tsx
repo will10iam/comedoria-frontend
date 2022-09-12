@@ -50,7 +50,7 @@ export default function SignUp() {
       </Head>
 
       <div className={styles.containerCenter}>
-        <Image className={styles.logo} src={LogoImg} alt="" width={800} height={500} />
+        <Image className={styles.logo} src={LogoImg} alt="" width={800} height={100} />
 
         <div className={styles.login}>
           <form onSubmit={handleSignUp}>
