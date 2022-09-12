@@ -12,6 +12,8 @@ import { FormEvent, useContext, useState } from "react";
 
 import Link from "next/link"
 import { AuthContext } from "../contexts/AuthContext";
+import { toast } from 'react-toastify'
+import { canSSRGuest } from "../utils/canSSRGuest";
 
 
 export default function Home() {
@@ -26,7 +28,7 @@ export default function Home() {
     event.preventDefault();
 
     if (email === '' || password === '') {
-      alert("INFORME EMAIL OU SENHA")
+      toast.warning("Informe os dados para acessar!")
       return;
     }
 
@@ -84,3 +86,9 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})
