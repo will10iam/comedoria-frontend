@@ -1,0 +1,50 @@
+.container {
+    width: 620px;
+    background-color: #060D13;
+    color: var(--white);
+
+    strong {
+        color: var(--yellow-900);
+    }
+
+}
+
+.container h2 {
+    margin: 1rem 0;
+}
+
+.containerItem {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+
+    strong {
+        color: var(--yellow-900);
+    }
+}
+
+.description {
+    margin-top: 0.5rem;
+    word-break: break-all;
+}
+
+.buttonOrder {
+    margin-top: 1.5rem;
+    background-color: var(--yellow-900);
+    border: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    color: var(--black);
+}
+
+@media screen and (max-width: 700px) {
+    .container {
+        width: 430px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .container {
+        width: 330px;
+    }
+}
